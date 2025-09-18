@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Tours & Travels | About Us</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="images/tiet-logo.png">
+    <h1>My Tours & Travels </h1>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="booking.html" class="nav-link">Booking</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="background-color:#ffeeee;box-shadow: 0 2px 6px rgba(0,0,0,0.15)"><span style="padding:5px;">About Us</span></h2>
+    <p>My Tour & Travels is dedicated to creating unforgettable travel experiences. Founded in 1995, we are a seasoned player in the Tours & Travel services having a strong and focused leadership team who are round the clock working to accomplish their Customer's Delight. Our customer crafted impeccable tours and travel packages  make us stand out amongst our peers. We specialize in personalized packages with exceptional customer service. </p>
+
+    
+
+    <h3>Travel Tips</h3>
+    <ul style="padding-left:20px;">
+      <li>Check visa requirements before booking your travel.</li>
+      <li>Pack light and prepare for local weather conditions.</li>
+      <li>Keep digital and physical copies of important documents.</li>
+      <li>Learn a few phrases in the local language.</li>
+      <li>Respect cultural customs and local laws.</li>
+    </ul>
+  </main>
+  <footer>&copy My Tours & Travels 2025</footer>
+
+<script type="text/javascript">
+  
+  // Highlight active nav link based on current page
+  function highlightNav() {
+    const navLinks = document.querySelectorAll('nav a.nav-link');
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+  highlightNav();
+</script>
+</body>
+</html>
