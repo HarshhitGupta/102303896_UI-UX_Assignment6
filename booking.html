@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Tours & Travels | Booking Form</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- <script type="text/javascript">
+    function validateForm() {
+      const name = document.forms["bookingForm"]["name"].value;
+      const startDate = document.forms["bookingForm"]["startDate"].value;
+      const endDate = document.forms["bookingForm"]["endDate"].value;
+      if (name.trim() === "") {
+        alert("Please enter your name.");
+        return false;
+      }
+      if (!startDate || !endDate) {
+        alert("Please select both start and end dates.");
+        return false;
+      }
+      if (endDate < startDate) {
+        alert("End date must be after start date.");
+        return false;
+      }
+      alert("Thanks for the submission")
+      return true;
+    }
+
+  </script> -->
+</head>
+<body>
+  <header>
+    <img src="images/tiet-logo.png">
+    <h1>My Tours & Travels</h1>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="booking.html" class="nav-link">Booking</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="background-color:#ffeeee;box-shadow: 0 2px 6px rgba(0,0,0,0.15)"><span style="padding:5px;">Book Your Tour</span></h2>
+   
+    <form id="bookingForm" style="max-width: 500px; margin: auto;">
+  <label>
+    Select Package:
+    <select id="packageSelect" required>
+      <option value="">-- Select --</option>
+    </select>
+  </label>
+
+  <label>
+    Check-in Date:
+    <input type="date" id="checkIn" required />
+  </label>
+
+  <label>
+    Check-out Date:
+    <input type="date" id="checkOut" required />
+  </label>
+
+  <label>
+    Number of Guests:
+    <input type="number" id="guests" min="1" value="1" required />
+  </label>
+
+  <label>
+    Promo Code:
+    <input type="text" id="promoCode" placeholder="Enter promo code" />
+  </label>
+
+  <p><strong>Estimated Total Price: </strong><span id="totalPrice">$0</span></p>
+
+  <button type="submit" id="submitBtn" disabled>Book Now</button>
+</form>
+  </main>
+  <footer>&copy My Tours & Travels 2025</footer>
+<script type="text/javascript">
+  
+  const packages = [
+    { id: 1, destination: "Paris, France", durationDays: 10, basePrice: 150000, season: "high" },
+    { id: 2, destination: "Bali, Indonesia", durationDays: 7, basePrice: 12000, season: "low" },
+    { id: 3, destination: "Tokyo, Japan", durationDays: 12, basePrice: 180000, season: "high" },
+    { id: 4, destination: "New York, USA", durationDays: 15, basePrice: 140000, season: "medium" }
+  ];
+  const seasonMultipliers = { high: 1.3, medium: 1.15, low: 1.0 };
+  const weekendSurcharge = 1.1;
+
+  const packageSelect = document.getElementById("packageSelect");
+  const checkIn = document.getElementById("checkIn");
+  const checkOut = document.getElementById("checkOut");
+  const guestsInput = document.getElementById("guests");
+  const promoInput = document.getElementById("promoCode");
+  const totalPriceEl = document.getElementById("totalPrice");
+  const submitBtn = document.getElementById("submitBtn");
+
+  function populatePackageOptions() {
+    packages.forEach(pkg => {
+      const option = document.createElement("option");
+      option.value = pkg.id;
+      option.textContent = `${pkg.destination} (${pkg.durationDays} days)`;
+      packageSelect.appendChild(option);
+    });
+  }
+
+  function formatDateMMDDYY(date) {
+  let mm = (date.getMonth() + 1).toString().padStart(2, '0');
+  let dd = date.getDate().toString().padStart(2, '0');
+  let yy = date.getFullYear().toString().slice(-2);
+  return `${dd}/${mm}/${yy}`;
+}
+
+
+
+
+
+
+  function calculatePrice() {
+    const pkgId = parseInt(packageSelect.value);
+    const checkInDate = new Date(checkIn.value);
+
+    const checkOutDate = new Date(checkOut.value);
+  
+    const guests = parseInt(guestsInput.value);
+
+    if (!pkgId || isNaN(checkInDate) || isNaN(checkOutDate) || checkOutDate <= checkInDate || guests < 1) {
+      totalPriceEl.textContent = "$0";
+      submitBtn.disabled = true;
+      return;
+    }
+
+    const nights = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+
+    const pkg = packages.find(p => p.id === pkgId);
+    if (!pkg) {
+      totalPriceEl.textContent = "$0";
+      submitBtn.disabled = true;
+      return;
+    }
+
+    let pricePerNight = pkg.basePrice / pkg.durationDays;
+    pricePerNight *= seasonMultipliers[pkg.season] || 1;
+    if (pkg.season === "high") pricePerNight *= weekendSurcharge;
+
+    let total = pricePerNight * nights * guests;
+
+    // guests multiplier +20% if guests > 2
+    if (guests > 2) total *= 1.2;
+
+    // promo code discount
+    switch ((promoInput.value || "").toUpperCase()) {
+      case "EARLYBIRD":
+        total *= 0.9; // 10% discount
+        break;
+      case "FESTIVE":
+        total *= 0.85; // 15% discount
+        break;    
+      default:
+        break;
+    }
+
+    chkInValue= formatDateMMDDYY(checkInDate);
+    checkOutValue=formatDateMMDDYY(checkOutDate);
+
+   
+
+    totalPriceEl.innerHTML = `$${total.toFixed(2).toLocaleString()} for ${nights} nights<br> for ${guestsInput.value} guests for ${pkg.destination} from ${chkInValue} to ${checkOutValue}`;
+
+    submitBtn.disabled = false;
+  }
+
+  function validateForm() {
+    const isValid = packageSelect.value && checkIn.value && checkOut.value &&
+      (new Date(checkOut.value) > new Date(checkIn.value)) &&
+      guestsInput.value > 0;
+    submitBtn.disabled = !isValid;
+  }
+
+  packageSelect.addEventListener("change", () => { calculatePrice(); validateForm(); });
+  checkIn.addEventListener("change", () => { calculatePrice(); validateForm(); });
+  checkOut.addEventListener("change", () => { calculatePrice(); validateForm(); });
+  guestsInput.addEventListener("input", () => { calculatePrice(); validateForm(); });
+  promoInput.addEventListener("input", () => { calculatePrice(); });
+
+  // Prevent submit for demonstration
+  document.getElementById("bookingForm").addEventListener("submit", e => {
+    e.preventDefault();
+    alert("Booking submitted! Total Price: " + totalPriceEl.textContent);
+      // Reset the form fields to default values (if any)
+  e.target.reset();
+
+  // Optionally, if some fields have default values and are not cleared by reset,
+  // clear those fields manually
+  e.target.querySelectorAll('input, select, textarea').forEach(field => {
+    if (field.id === 'guests') {
+      // Skip the guests field to keep its default value
+      return;
+    }
+    if (field.type === 'checkbox' || field.type === 'radio') {
+      field.checked = false;
+    } else {
+      field.value = '';
+    }
+  });
+
+  // Reset displayed total price and disable submit button if needed
+  document.getElementById('totalPrice').textContent = '$0';
+  document.getElementById('submitBtn').disabled = true;
+  });
+
+  populatePackageOptions();
+
+
+
+
+// Highlight active nav link based on current page
+function highlightNav() {
+  const navLinks = document.querySelectorAll('nav a.nav-link');
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+highlightNav();
+
+
+</script>
+</body>
+</html>

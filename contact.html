@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Tours & Travels | Contact Us</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="images/tiet-logo.png">
+    <h1>My Tours & Travels </h1>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="booking.html" class="nav-link">Booking</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="background-color:#ffeeee;box-shadow: 0 2px 6px rgba(0,0,0,0.15)"><span style="padding:5px;">Contact Us</span></h2>
+    
+    <p>Email: <a href="mailto:hgupta2_be23@thapar.edu">hgupta2_be23@thapar.edu</a></p>
+    <address>P.O. Box 32, Bhadson Road, Patiala, Punjab, Pin -147004, India</address>
+    <p>Phone: 1800-202-4100</p>
+
+    <h3>Follow Us</h3>
+   
+
+    <div class="social-links">
+    <a href="https://facebook.com/mytourstravels" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://twitter.com/mytourstravels" target="_blank" rel="noopener">Twitter</a>
+    <a href="https://instagram.com/mytourstravels" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://linkedin.com/in/mytourstravels" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+    <h3>Travel Tips</h3>
+    <ul style="padding-left:20px;">
+      <li>Check visa requirements before booking your travel.</li>
+      <li>Pack light and prepare for local weather conditions.</li>
+      <li>Keep digital and physical copies of important documents.</li>
+      <li>Learn a few phrases in the local language.</li>
+      <li>Respect cultural customs and local laws.</li>
+    </ul>
+  </main>
+  <footer>&copy My Tours & Travels 2025</footer>
+
+<script type="text/javascript">
+  
+// Highlight active nav link based on current page
+function highlightNav() {
+  const navLinks = document.querySelectorAll('nav a.nav-link');
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+highlightNav();
+
+
+</script>
+</body>
+</html>

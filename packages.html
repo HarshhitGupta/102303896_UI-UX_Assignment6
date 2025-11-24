@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Tours & Travels | Packages</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    
+    header, footer {
+      padding: 15px 10px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: row;
+        align-items: left;
+        flex-wrap: wrap;
+      }
+      .container {
+        padding: 0 5px;
+      }
+      h1 {
+        font-size: 1.4em;
+      }
+      footer {
+        font-size: 0.95em;
+        padding: 12px 5px;
+      }
+    }
+</style>
+</head>
+<body>
+  <header>
+    <img src="images/tiet-logo.png">
+    <h1>My Tours & Travels</h1>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="booking.html" class="nav-link">Booking</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 style="background-color:#ffeeee; box-shadow: 0 2px 6px rgba(0,0,0,0.15)"><span style="padding:5px;">Tour Packages</span></h2>
+    <div style="overflow-x:auto;">
+      <table id="packagesTable">
+        <thead>
+          <tr>
+            <th>Destination</th>
+            <th>Duration</th>
+            <th>Base Price (USD)</th>
+            <th>Season</th>
+            <th>Final Price (USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JS fills this -->
+        </tbody>
+      </table>
+  </div>
+  </main>
+  <footer>&copy My Tours & Travels 2025</footer>
+
+<script type="text/javascript">
+  
+  // Highlight active nav link based on current page
+  function highlightNav() {
+    const navLinks = document.querySelectorAll('nav a.nav-link');
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  const packages = [
+    { id: 1, destination: "Paris, France", durationDays: 10, basePrice: 150000, season: "high" },
+    { id: 2, destination: "Bali, Indonesia", durationDays: 7, basePrice: 12000, season: "low" },
+    { id: 3, destination: "Tokyo, Japan", durationDays: 12, basePrice: 180000, season: "high" },
+    { id: 4, destination: "New York, USA", durationDays: 15, basePrice: 140000, season: "medium" }
+  ];
+
+  const seasonMultipliers = {
+    high: 1.3,
+    medium: 1.15,
+    low: 1.0
+  };
+
+  const weekendSurcharge = 1.1;
+
+  function calculateFinalPrice(pkg) {
+    let price = pkg.basePrice * (seasonMultipliers[pkg.season] || 1);
+    if (pkg.season === 'high') {
+      price *= weekendSurcharge;
+    }
+    return Math.round(price);
+  }
+
+  function renderPackages() {
+    const tbody = document.querySelector("#packagesTable tbody");
+    tbody.innerHTML = "";
+
+    packages.forEach(pkg => {
+      const finalPrice = calculateFinalPrice(pkg);
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${pkg.destination}</td>
+        <td>${pkg.durationDays} Days</td>
+        <td>$${pkg.basePrice.toLocaleString()}</td>
+        <td>${pkg.season}</td>
+        <td>$${finalPrice.toLocaleString()}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  renderPackages();
+
+
+
+
+
+
+  highlightNav();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Tours & Travels | Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="images/tiet-logo.png">
+    <h1>My Tours & Travels</h1>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="packages.html" class="nav-link">Packages</a>
+      <a href="booking.html" class="nav-link">Booking</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      
+       <a href="contact.html" class="nav-link">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="banner"><img class="banner"  src="images/images.jpg" alt="Travel Banner"></div>
+
+    <h2 style="background-color:#ffeeee;box-shadow: 0 2px 6px rgba(0,0,0,0.15)"><span style="padding:5px;">Welcome to My Tours & Travels</span></h2>
+    <p>My Tours & Travels, one of the premier travel agencies in India, offers custom-crafted tour packages for unforgettable holiday experiences across the country. Discover amazing destinations and exclusive tour packages tailor made just for you. Whether you want a relaxing beach holiday, adventurous mountain trekking, or cultural city tours, we have it all!</p>
+    <div style="display: flex; flex-wrap:wrap; flex-direction:row; gap:30px">
+      <section style="flex:1 300px; border:1px solid #ccc; padding:1rem; box-shadow: 0 0 6px rgba(0, 122, 204, 0.5)">
+        <h2>Must-Visit Places</h2>
+          <ul>
+            <li>The Eiffel Tower, Paris</li>
+            <li>Great Wall of China</li>
+            <li>The Grand Canyon, USA</li>
+            <li>Machu Picchu, Peru</li>
+            <li>Sydney Opera House, Australia</li>
+          </ul>
+      </section>
+      <aside><img src="images/newyork.jpeg"/></aside>
+    </div>
+    
+  </main>
+  <footer>&copy My Tours & Travels 2025</footer>
+
+<script type="text/javascript">
+  
+  // Highlight active nav link based on current page
+  function highlightNav() {
+    const navLinks = document.querySelectorAll('nav a.nav-link');
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+  highlightNav();
+</script>
+</body>
+</html>
